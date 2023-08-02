@@ -42,6 +42,11 @@ async function connectToMongoDB() {
 
     const leafNodes = whitelistedAddresses.map(addr=>keccak256(addr))
     const merkleTree = new MerkleTree(leafNodes, keccak256, {sortPairs:true}) 
+    
+    // Root hash and Merkle tree can be found here.
+    const roothash = merkleTree.getHexRoot();
+    console.log('Root hash',roothash);
+    console.log('Whitelist Merkle tree\n', merkleTree.toString());
 
     // Prepare the data to be inserted
     const data = whitelistedAddresses.map((address, index) => ({
